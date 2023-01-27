@@ -65,8 +65,20 @@ public class MovieRepository {
     }
 
     public String deleteDirectorByName(String name){
+        HashSet<String> hm=new HashSet<>();
         if(direcdb.containsKey(name)){
             direcdb.remove(name);
+            for(String a : moviedb.keySet()){
+                if(moviedb.get(a).equals(name)){
+                    hm.add(a);
+                }
+            }
+            for(String a : movdirdb.keySet()){
+                if(hm.contains(a)){
+                    movdirdb.remove(a);
+                    moviedb.remove(a);
+                }
+            }
             return "Deleted Successfully";
         }
         return "No such detail found";
@@ -81,7 +93,7 @@ public class MovieRepository {
             moviedb.remove(a);
             movdirdb.remove(a);
         }
-        direcdb=new HashMap<>();
+        direcdb.clear();
         return "Deleted all directors and related movies";
     }
 }
