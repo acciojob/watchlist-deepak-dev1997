@@ -65,23 +65,20 @@ public class MovieRepository {
     }
 
     public String deleteDirectorByName(String name){
-        HashSet<String> hm=new HashSet<>();
-        if(direcdb.containsKey(name)){
-            direcdb.remove(name);
-            for(String a : moviedb.keySet()){
-                if(moviedb.get(a).equals(name)){
-                    hm.add(a);
-                }
+        HashSet<String> hm= new HashSet<>();
+        direcdb.remove(name);
+        for(String a:movdirdb.keySet()){
+            if(movdirdb.get(a).equals(name)){
+                hm.add(a);
             }
-            for(String a : movdirdb.keySet()){
-                if(hm.contains(a)){
-                    movdirdb.remove(a);
-                    moviedb.remove(a);
-                }
-            }
-            return "Deleted Successfully";
+
         }
-        return "No such detail found";
+        for(String a :hm) {
+            moviedb.remove(a);
+            movdirdb.remove(a);
+        }
+
+        return "Deleted Successfully";
     }
 
     public String deleteAllDirectors(){
